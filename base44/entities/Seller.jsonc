@@ -1,0 +1,75 @@
+{
+  "name": "Seller",
+  "type": "object",
+  "properties": {
+    "display_name": {
+      "type": "string",
+      "title": "Nombre de la tienda"
+    },
+    "tagline": {
+      "type": "string",
+      "title": "Frase corta para la portada"
+    },
+    "catalog_title": {
+      "type": "string",
+      "title": "T\u00edtulo del cat\u00e1logo"
+    },
+    "catalog_subtitle": {
+      "type": "string",
+      "title": "Subt\u00edtulo del cat\u00e1logo"
+    },
+    "whatsapp": {
+      "type": "string",
+      "title": "WhatsApp con c\u00f3digo de pa\u00eds"
+    },
+    "instagram": {
+      "type": "string",
+      "title": "Instagram (@usuario)"
+    },
+    "city": {
+      "type": "string",
+      "title": "Ciudad"
+    },
+    "hours": {
+      "type": "string",
+      "title": "Horario de atenci\u00f3n"
+    },
+    "note": {
+      "type": "string",
+      "title": "Nota al pie del cat\u00e1logo"
+    },
+    "logo_url": {
+      "type": "string",
+      "title": "Logo"
+    },
+    "hero_image_url": {
+      "type": "string",
+      "title": "Imagen de portada"
+    }
+  },
+  "required": [
+    "display_name"
+  ],
+  "rls": {
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

@@ -45,7 +45,7 @@ export function useCatalog() {
     let alive = true;
     setLoading(true);
 
-    const query = { active: true };
+    const query = { active: true, seller_id: { $exists: false } };
     if (category !== 'Todos') query.category = category;
 
     base44.entities.Product.filter(query, { sort: 'sort_order', limit: 60 })

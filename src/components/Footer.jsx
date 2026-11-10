@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Clock, Instagram, Mail, MapPin, MessageCircle } from 'lucide-react';
 import { SITE } from '@/data/siteConfig';
 import { buildGeneralLink } from '@/lib/whatsapp';
@@ -93,7 +94,12 @@ export default function Footer() {
 
         <div className="mt-12 flex flex-col gap-2 border-t border-white/15 pt-6 text-[10px] font-bold uppercase tracking-[0.14em] text-white/35 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} Mundo Juguete</p>
-          <p>Hecho con juego en Lima, Perú</p>
+          <div className="flex items-center gap-4">
+            <p>Hecho con juego en Lima, Perú</p>
+            <Link to="/panel" className="transition-colors hover:text-toySun">
+              Panel
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

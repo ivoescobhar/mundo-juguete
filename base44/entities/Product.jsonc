@@ -10,6 +10,10 @@
       "type": "string",
       "title": "SKU"
     },
+    "seller_id": {
+      "type": "string",
+      "title": "Vendedor"
+    },
     "category": {
       "type": "string",
       "title": "Categor\u00eda"
