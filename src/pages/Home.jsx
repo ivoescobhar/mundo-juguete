@@ -8,6 +8,7 @@ import HowToBuy from '@/components/HowToBuy';
 import AboutSection from '@/components/AboutSection';
 import FaqSection from '@/components/FaqSection';
 import Footer from '@/components/Footer';
+import ExportPdfButton from '@/components/ExportPdfButton';
 import { useCatalog } from '@/hooks/useCatalog';
 
 export default function Home() {
@@ -26,18 +27,35 @@ export default function Home() {
   );
 
   return (
-    <div id="top" className="min-h-screen bg-toyCanvas">
+    <div id="top" data-pdf-root className="min-h-screen bg-toyCanvas">
       <Header />
       <main>
-        <Hero />
-        <TickerStrip />
-        <ValueStrip />
-        <ProductGrid {...catalogProps} />
-        <HowToBuy />
-        <AboutSection />
-        <FaqSection />
+        <div data-pdf-block>
+          <Hero />
+        </div>
+        <div data-pdf-block>
+          <TickerStrip />
+        </div>
+        <div data-pdf-block>
+          <ValueStrip />
+        </div>
+        <div data-pdf-block>
+          <ProductGrid {...catalogProps} />
+        </div>
+        <div data-pdf-block>
+          <HowToBuy />
+        </div>
+        <div data-pdf-block>
+          <AboutSection />
+        </div>
+        <div data-pdf-block>
+          <FaqSection />
+        </div>
       </main>
-      <Footer />
+      <div data-pdf-block>
+        <Footer />
+      </div>
+      <ExportPdfButton />
     </div>
   );
 }

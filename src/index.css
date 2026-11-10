@@ -93,6 +93,15 @@
 }
 
 @layer utilities {
+  .pdf-capturing .animate-marquee {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .pdf-capturing .blur-3xl {
+    opacity: 0 !important;
+  }
+
   @keyframes marquee-scroll {
     from {
       transform: translateX(0);

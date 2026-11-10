@@ -9,7 +9,10 @@ const LINKS = [
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-50 border-b-[3px] border-toyInk bg-toyCanvas/90 backdrop-blur-md">
+    <header
+      data-pdf-block
+      className="sticky top-0 z-50 border-b-[3px] border-toyInk bg-toyCanvas/90 backdrop-blur-md"
+    >
       <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between px-5 sm:h-20 sm:px-8">
         <a href="#top" className="flex items-center gap-2.5">
           <span className="grid h-9 w-9 -rotate-6 place-items-center rounded-xl border-[3px] border-toyInk bg-toySun transition-transform duration-300 hover:rotate-6">
