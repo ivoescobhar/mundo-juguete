@@ -10,7 +10,20 @@ module.exports = {
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
   		},
+  		boxShadow: {
+  			brutal: '6px 6px 0 0 #050505',
+  			'brutal-sm': '4px 4px 0 0 #050505',
+  			'brutal-lg': '10px 10px 0 0 #050505',
+  			'brutal-sun': '6px 6px 0 0 #E5C100'
+  		},
   		colors: {
+  			toyInk: '#050505',
+  			toyCanvas: '#F8F9FA',
+  			toySky: '#BDE0FE',
+  			toySun: '#FFEA00',
+  			toyCoral: '#FF6B5A',
+  			toyMint: '#C7F0DB',
+  			toyLilac: '#E4D9FF',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {

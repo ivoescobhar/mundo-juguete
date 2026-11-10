@@ -1,0 +1,76 @@
+{
+  "name": "Product",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Nombre del juguete"
+    },
+    "sku": {
+      "type": "string",
+      "title": "SKU"
+    },
+    "category": {
+      "type": "string",
+      "title": "Categor\u00eda"
+    },
+    "price": {
+      "type": "number",
+      "title": "Precio de referencia (S/)"
+    },
+    "age_range": {
+      "type": "string",
+      "title": "Edad recomendada"
+    },
+    "tag": {
+      "type": "string",
+      "title": "Etiqueta destacada"
+    },
+    "description": {
+      "type": "string",
+      "title": "Descripci\u00f3n corta"
+    },
+    "image_url": {
+      "type": "string",
+      "title": "Foto del producto"
+    },
+    "featured": {
+      "type": "boolean",
+      "title": "Destacado (tarjeta ancha)",
+      "default": false
+    },
+    "active": {
+      "type": "boolean",
+      "title": "Visible en el cat\u00e1logo",
+      "default": true
+    },
+    "sort_order": {
+      "type": "number",
+      "title": "Orden en el cat\u00e1logo",
+      "default": 0
+    }
+  },
+  "required": [
+    "name",
+    "sku",
+    "price"
+  ],
+  "rls": {
+    "read": {},
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}
