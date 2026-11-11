@@ -23,7 +23,7 @@ const STEPS = [
 
 export default function ContactPage({ seller }) {
   return (
-    <div className="flex h-full flex-col px-[46px] py-[42px]">
+    <div className="catalog-print-contact flex h-full flex-col px-[46px] py-[42px]">
       <div className="flex items-center justify-between border-b-[3px] border-toyInk pb-[11px]">
         <p className="text-[8.5px] font-extrabold uppercase tracking-[0.18em] text-toyInk/45">
           {seller.display_name}

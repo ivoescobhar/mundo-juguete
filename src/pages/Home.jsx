@@ -27,7 +27,7 @@ export default function Home() {
   );
 
   return (
-    <div id="top" data-pdf-root className="min-h-screen bg-toyCanvas">
+    <div id="top" data-pdf-root className="catalog-print-root min-h-screen bg-toyCanvas">
       <Header />
       <main>
         <div data-pdf-block>

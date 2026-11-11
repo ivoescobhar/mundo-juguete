@@ -4,11 +4,11 @@ import { initialsOf } from '@/lib/catalogPdf';
 export default function PdfProductCard({ product, imageUrl, accent, minHeight = 0 }) {
   return (
     <div
-      className="flex w-full flex-col overflow-hidden rounded-[22px] border-[3px] border-toyInk bg-white"
+      className="catalog-product-card flex w-full flex-col overflow-hidden rounded-[22px] border-[3px] border-toyInk bg-white"
       style={{ minHeight }}
     >
       <div
-        className={`shrink-0 border-b-[3px] border-toyInk ${accent}`}
+        className={`catalog-product-image shrink-0 border-b-[3px] border-toyInk ${accent}`}
         style={{
           height: 148,
           backgroundImage: imageUrl ? `url("${imageUrl}")` : undefined,
@@ -25,25 +25,25 @@ export default function PdfProductCard({ product, imageUrl, accent, minHeight = 
         )}
       </div>
 
-      <div className="flex flex-1 flex-col px-3 pb-3 pt-[11px]">
-        <p className="text-[8.5px] font-extrabold uppercase leading-none tracking-[0.13em] text-toyInk/45">
+      <div className="catalog-product-body flex flex-1 flex-col px-3 pb-3 pt-[11px]">
+        <p className="catalog-product-meta text-[8.5px] font-extrabold uppercase leading-none tracking-[0.13em] text-toyInk/45">
           {[product.sku, product.age_range, product.category].filter(Boolean).join(' · ')}
         </p>
 
         <p
-          className="mt-[5px] font-display uppercase leading-[1.05] tracking-[-0.01em]"
+          className="catalog-product-name mt-[5px] font-display uppercase leading-[1.05] tracking-[-0.01em]"
           style={{ fontSize: 15 }}
         >
           {product.name}
         </p>
 
         {product.description?.trim() && (
-          <p className="mt-[5px] leading-[1.45] text-toyInk/60" style={{ fontSize: 9.5 }}>
+          <p className="catalog-product-description mt-[5px] leading-[1.45] text-toyInk/60" style={{ fontSize: 9.5 }}>
             {product.description}
           </p>
         )}
 
-        <div className="mt-auto flex items-end justify-between pt-[10px]">
+        <div className="catalog-product-price mt-auto flex items-end justify-between pt-[10px]">
           <div>
             <p className="text-[7.5px] font-bold uppercase leading-none tracking-[0.14em] text-toyInk/40">
               Precio

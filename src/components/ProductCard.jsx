@@ -7,12 +7,12 @@ import WalletBadges from '@/components/WalletBadges';
 export default function ProductCard({ product, featured = false }) {
   return (
     <article
-      className={`group flex w-full flex-col rounded-[28px] border-[3px] border-toyInk bg-white p-4 shadow-brutal transition-all duration-300 ease-out hover:-translate-x-1 hover:-translate-y-1 hover:shadow-brutal-lg sm:p-5 ${
+      className={`catalog-product-card group flex w-full flex-col rounded-[28px] border-[3px] border-toyInk bg-white p-4 shadow-brutal transition-all duration-300 ease-out hover:-translate-x-1 hover:-translate-y-1 hover:shadow-brutal-lg sm:p-5 ${
         featured ? 'lg:col-span-2 lg:flex-row lg:items-stretch lg:gap-7 lg:p-6' : ''
       }`}
     >
       <div
-        className={`relative overflow-hidden rounded-[20px] border-2 border-toyInk bg-toySky ${
+        className={`catalog-product-image relative overflow-hidden rounded-[20px] border-2 border-toyInk bg-toySky ${
           featured ? 'lg:w-1/2 lg:shrink-0' : ''
         }`}
       >
@@ -29,8 +29,8 @@ export default function ProductCard({ product, featured = false }) {
         )}
       </div>
 
-      <div className={`mt-4 flex flex-1 flex-col ${featured ? 'lg:mt-0 lg:justify-center' : ''}`}>
-        <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.16em] text-toyInk/45">
+      <div className={`catalog-product-body mt-4 flex flex-1 flex-col ${featured ? 'lg:mt-0 lg:justify-center' : ''}`}>
+        <div className="catalog-product-meta flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.16em] text-toyInk/45">
           <span>{product.sku}</span>
           <span className="h-1 w-1 rounded-full bg-toyInk/25" />
           <span>{product.age}</span>
@@ -39,16 +39,16 @@ export default function ProductCard({ product, featured = false }) {
         </div>
 
         <h3
-          className={`mt-2 font-display uppercase leading-[1.05] tracking-[-0.01em] ${
+          className={`catalog-product-name mt-2 font-display uppercase leading-[1.05] tracking-[-0.01em] ${
             featured ? 'text-2xl sm:text-3xl' : 'text-xl'
           }`}
         >
           {product.name}
         </h3>
 
-        <p className="mt-2 text-sm leading-relaxed text-toyInk/65">{product.description}</p>
+        <p className="catalog-product-description mt-2 text-sm leading-relaxed text-toyInk/65">{product.description}</p>
 
-        <div className="mt-4 flex items-end gap-1.5">
+        <div className="catalog-product-price mt-4 flex items-end gap-1.5">
           <span className="pb-1.5 font-display text-sm">S/</span>
           <span className="font-display text-[2.4rem] leading-none tracking-[-0.03em]">
             {formatPrice(product.price)}

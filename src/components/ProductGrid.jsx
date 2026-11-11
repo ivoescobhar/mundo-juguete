@@ -1,5 +1,5 @@
 import CategoryFilter from '@/components/CategoryFilter';
-import ProductCard from '@/components/ProductCard';
+import ProductRows from '@/components/ProductRows';
 
 function CardSkeleton() {
   return (
@@ -39,7 +39,7 @@ export default function ProductGrid({
         </p>
       </div>
 
-      <div className="mt-6">
+      <div data-print-hidden className="mt-6">
         <CategoryFilter
           categories={categories}
           active={activeCategory}
@@ -68,10 +68,8 @@ export default function ProductGrid({
           </button>
         </div>
       ) : (
-        <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} featured={product.featured} />
-          ))}
+        <div className="catalog-product-grid mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <ProductRows products={products} />
         </div>
       )}
     </section>

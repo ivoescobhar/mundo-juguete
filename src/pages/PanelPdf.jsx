@@ -64,7 +64,7 @@ export default function PanelPdf() {
   const ready = seller && images;
 
   return (
-    <div className="min-h-screen bg-toyCanvas">
+    <div data-pdf-root className="catalog-print-root min-h-screen bg-toyCanvas">
       <PanelHeader
         backTo={`/panel/${sellerId}`}
         title={seller ? `Catálogo · ${seller.display_name}` : 'Catálogo'}
@@ -90,7 +90,7 @@ export default function PanelPdf() {
         </button>
       </PanelHeader>
 
-      <main className="overflow-x-auto px-5 py-8 sm:px-8">
+      <main className="catalog-print-main overflow-x-auto px-5 py-8 sm:px-8">
         {error && (
           <p className="mx-auto mb-4 max-w-[794px] rounded-xl border-2 border-toyCoral bg-toyCoral/10 px-4 py-3 text-sm font-semibold text-toyInk">
             {error}
@@ -102,9 +102,9 @@ export default function PanelPdf() {
             <Loader2 className="h-6 w-6 animate-spin text-toyInk/40" />
           </div>
         ) : (
-          <div className="mx-auto flex w-[794px] flex-col gap-8">
+          <div className="catalog-print-pages mx-auto flex w-[794px] flex-col gap-8">
             {pages.map((page, index) => (
-              <div key={index} className="w-[794px] shadow-[0_18px_50px_rgba(5,5,5,0.16)]">
+              <div key={index} className="catalog-print-sheet w-[794px] shadow-[0_18px_50px_rgba(5,5,5,0.16)]">
                 <PdfPageFrame
                   ref={(node) => {
                     pageRefs.current[index] = node;

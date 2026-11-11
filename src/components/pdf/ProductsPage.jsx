@@ -4,7 +4,7 @@ const ACCENTS = ['bg-toySky', 'bg-toySun', 'bg-toyMint', 'bg-toyLilac', 'bg-toyC
 
 export default function ProductsPage({ seller, rows = [], images = {}, pageNumber, totalPages }) {
   return (
-    <div className="flex h-full flex-col px-[44px] pb-[26px] pt-[30px]">
+    <div className="catalog-print-products flex h-full flex-col px-[44px] pb-[26px] pt-[30px]">
       <div className="flex items-end justify-between border-b-[3px] border-toyInk pb-[11px]">
         <div>
           <p className="text-[8.5px] font-extrabold uppercase tracking-[0.18em] text-toyInk/45">
@@ -19,11 +19,11 @@ export default function ProductsPage({ seller, rows = [], images = {}, pageNumbe
         </p>
       </div>
 
-      <div className="mt-[16px] flex flex-1 flex-col">
+      <div className="catalog-print-rows mt-[16px] flex flex-1 flex-col">
         {rows.map((row, rowIndex) => (
           <div
             key={rowIndex}
-            className={`flex items-stretch -mx-[9px] ${rowIndex > 0 ? 'mt-3' : ''}`}
+            className={`catalog-product-row flex items-stretch -mx-[9px] ${rowIndex > 0 ? 'mt-3' : ''}`}
           >
             {row.items.map((product, index) => (
               <div key={product.id} className="w-1/2 px-[9px]">

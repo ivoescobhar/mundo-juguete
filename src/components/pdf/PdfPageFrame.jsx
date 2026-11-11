@@ -5,7 +5,7 @@ const PdfPageFrame = forwardRef(function PdfPageFrame({ children }, ref) {
   return (
     <div
       ref={ref}
-      className="relative flex flex-col overflow-hidden bg-toyCanvas"
+      className="catalog-print-frame relative flex flex-col overflow-hidden bg-toyCanvas"
       style={{ width: PAGE_WIDTH, height: PAGE_HEIGHT }}
     >
       {children}

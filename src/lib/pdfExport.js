@@ -1,5 +1,4 @@
-import html2canvas from 'html2canvas';
-import { jsPDF } from 'jspdf';
+import { exportAppToPdf } from '@/lib/appPdfExport';
 
 export const PAGE_WIDTH = 794;
 export const PAGE_HEIGHT = 1123;
@@ -31,26 +30,6 @@ export async function preloadImages(urls) {
 }
 
 export async function exportNodesToPdf(nodes, filename) {
-  const pdf = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait', compress: true });
-
-  if (document.fonts && document.fonts.ready) {
-    await document.fonts.ready;
-  }
-  await new Promise((resolve) => setTimeout(resolve, 250));
-
-  for (let index = 0; index < nodes.length; index += 1) {
-    const canvas = await html2canvas(nodes[index], {
-      scale: 2,
-      useCORS: true,
-      backgroundColor: '#F8F9FA',
-      logging: false,
-      width: PAGE_WIDTH,
-      height: PAGE_HEIGHT,
-    });
-    const image = canvas.toDataURL('image/jpeg', 0.94);
-    if (index > 0) pdf.addPage();
-    pdf.addImage(image, 'JPEG', 0, 0, 210, 297);
-  }
-
-  pdf.save(filename);
+  const root = nodes[0]?.closest('[data-pdf-root]');
+  await exportAppToPdf(root, { filename });
 }
