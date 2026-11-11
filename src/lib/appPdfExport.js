@@ -3,10 +3,8 @@ import { jsPDF } from 'jspdf';
 
 const PAGE_W = 210;
 const PAGE_H = 297;
-const FOOTER_H = 7;
-const CONTENT_H = PAGE_H - FOOTER_H;
+const CONTENT_H = PAGE_H - 8;
 const BACKGROUND = '#F8F9FA';
-const MIN_SPACE_MM = 45;
 
 function toDataUrl(url) {
   return fetch(url, { mode: 'cors' })
@@ -74,17 +72,6 @@ function cropCanvas(canvas, startY, height) {
   return out;
 }
 
-function drawFooter(pdf, pageNumber) {
-  const top = PAGE_H - FOOTER_H;
-  pdf.setFillColor(5, 5, 5);
-  pdf.rect(0, top, PAGE_W, FOOTER_H, 'F');
-  pdf.setTextColor(255, 234, 0);
-  pdf.setFont('helvetica', 'bold');
-  pdf.setFontSize(7);
-  pdf.text('MUNDO JUGUETE', 10, top + 4.6);
-  pdf.text(`${pageNumber}`, PAGE_W - 10, top + 4.6, { align: 'right' });
-}
-
 export async function exportAppToPdf(root, { filename = 'mundo-juguete.pdf' } = {}) {
   if (!root) return;
 
@@ -102,13 +89,10 @@ export async function exportAppToPdf(root, { filename = 'mundo-juguete.pdf' } = 
 
     const blocks = Array.from(root.querySelectorAll('[data-pdf-block]'));
     const pdf = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait', compress: true });
-    let pageNumber = 1;
     let cursor = 0;
 
     const nextPage = () => {
-      drawFooter(pdf, pageNumber);
       pdf.addPage();
-      pageNumber += 1;
       cursor = 0;
     };
 
@@ -122,17 +106,19 @@ export async function exportAppToPdf(root, { filename = 'mundo-juguete.pdf' } = 
       if (!canvas.height) continue;
 
       const mmPerPx = PAGE_W / canvas.width;
+      const blockHeight = canvas.height * mmPerPx;
+
+      // los bloques que caben en una página nunca se parten: pasan a la siguiente
+      if (cursor > 0 && blockHeight <= CONTENT_H && cursor + blockHeight > CONTENT_H) {
+        nextPage();
+      }
+
       let offset = 0;
 
       while (offset < canvas.height) {
-        const spaceLeft = CONTENT_H - cursor;
-        const spacePx = Math.floor(spaceLeft / mmPerPx);
+        const spacePx = Math.floor((CONTENT_H - cursor) / mmPerPx);
         const missingPx = canvas.height - offset;
 
-        if (missingPx > spacePx && spaceLeft < MIN_SPACE_MM && cursor > 0) {
-          nextPage();
-          continue;
-        }
         if (spacePx <= 0) {
           nextPage();
           continue;
@@ -144,13 +130,10 @@ export async function exportAppToPdf(root, { filename = 'mundo-juguete.pdf' } = 
         cursor += piecePx * mmPerPx;
         offset += piecePx;
 
-        if (offset < canvas.height) {
-          nextPage();
-        }
+        if (offset < canvas.height) nextPage();
       }
     }
 
-    drawFooter(pdf, pageNumber);
     pdf.save(filename);
   } finally {
     document.body.classList.remove('pdf-capturing');

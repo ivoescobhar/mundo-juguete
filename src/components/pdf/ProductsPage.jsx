@@ -2,14 +2,9 @@ import PdfProductCard from '@/components/pdf/PdfProductCard';
 
 const ACCENTS = ['bg-toySky', 'bg-toySun', 'bg-toyMint', 'bg-toyLilac', 'bg-toyCoral'];
 
-export default function ProductsPage({ seller, items, images, pageNumber, totalPages }) {
-  const rows = [];
-  for (let index = 0; index < items.length; index += 2) {
-    rows.push(items.slice(index, index + 2));
-  }
-
+export default function ProductsPage({ seller, rows = [], images = {}, pageNumber, totalPages }) {
   return (
-    <div className="flex h-full flex-col px-[44px] pb-[34px] pt-[34px]">
+    <div className="flex h-full flex-col px-[44px] pb-[26px] pt-[30px]">
       <div className="flex items-end justify-between border-b-[3px] border-toyInk pb-[11px]">
         <div>
           <p className="text-[8.5px] font-extrabold uppercase tracking-[0.18em] text-toyInk/45">
@@ -28,22 +23,23 @@ export default function ProductsPage({ seller, items, images, pageNumber, totalP
         {rows.map((row, rowIndex) => (
           <div
             key={rowIndex}
-            className={`flex items-stretch -mx-[9px] ${rowIndex > 0 ? 'mt-[18px]' : ''}`}
+            className={`flex items-stretch -mx-[9px] ${rowIndex > 0 ? 'mt-3' : ''}`}
           >
-            {row.map((product, index) => (
+            {row.items.map((product, index) => (
               <div key={product.id} className="w-1/2 px-[9px]">
                 <PdfProductCard
                   product={product}
                   imageUrl={images[product.image_url] || product.image_url}
                   accent={ACCENTS[(rowIndex * 2 + index) % ACCENTS.length]}
+                  minHeight={row.height}
                 />
               </div>
             ))}
-            {row.length === 1 && <div className="w-1/2 px-[9px]" />}
+            {row.items.length === 1 && <div className="w-1/2 px-[9px]" />}
           </div>
         ))}
 
-        {items.length === 0 && (
+        {rows.length === 0 && (
           <div className="flex flex-1 items-center justify-center rounded-[22px] border-[3px] border-dashed border-toyInk/25">
             <p className="font-display uppercase text-toyInk/40" style={{ fontSize: 15 }}>
               Aún no hay juguetes cargados

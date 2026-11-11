@@ -3,12 +3,12 @@ import { useParams } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import PanelHeader from '@/components/panel/PanelHeader';
 import PdfPageFrame from '@/components/pdf/PdfPageFrame';
-import CoverPage from '@/components/pdf/CoverPage';
 import ProductsPage from '@/components/pdf/ProductsPage';
 import ContactPage from '@/components/pdf/ContactPage';
+import BookReader from '@/components/book/BookReader';
 import { buildCatalogPages, catalogFileName } from '@/lib/catalogPdf';
 import { preloadImages, exportNodesToPdf } from '@/lib/pdfExport';
-import { Download, Loader2 } from 'lucide-react';
+import { BookOpen, Download, Loader2 } from 'lucide-react';
 
 export default function PanelPdf() {
   const { sellerId } = useParams();
@@ -16,6 +16,7 @@ export default function PanelPdf() {
   const [products, setProducts] = useState([]);
   const [images, setImages] = useState(null);
   const [busy, setBusy] = useState(false);
+  const [readerOpen, setReaderOpen] = useState(false);
   const [error, setError] = useState('');
   const pageRefs = useRef({});
 
@@ -45,7 +46,7 @@ export default function PanelPdf() {
   }, [sellerId]);
 
   const pages = useMemo(() => buildCatalogPages(products), [products]);
-  const totalProductPages = pages.filter((page) => page.type === 'products').length;
+  const productPageCount = pages.filter((page) => page.type === 'products').length;
 
   const handleDownload = async () => {
     setError('');
@@ -66,14 +67,23 @@ export default function PanelPdf() {
     <div className="min-h-screen bg-toyCanvas">
       <PanelHeader
         backTo={`/panel/${sellerId}`}
-        title={seller ? `PDF · ${seller.display_name}` : 'Catálogo PDF'}
-        subtitle="Esta es la vista previa exacta del archivo que descargarás"
+        title={seller ? `Catálogo · ${seller.display_name}` : 'Catálogo'}
+        subtitle="Léelo como un libro digital o descárgalo en PDF, con las descripciones completas"
       >
+        <button
+          type="button"
+          onClick={() => setReaderOpen(true)}
+          disabled={!ready}
+          className="inline-flex items-center gap-2 rounded-xl border-[3px] border-toyInk bg-toySun px-4 py-2.5 font-display text-[11px] uppercase tracking-[0.08em] shadow-brutal-sm transition-transform hover:-translate-y-0.5 disabled:opacity-50"
+        >
+          <BookOpen className="h-4 w-4" strokeWidth={2.5} />
+          Leer libro
+        </button>
         <button
           type="button"
           onClick={handleDownload}
           disabled={!ready || busy}
-          className="inline-flex items-center gap-2 rounded-xl border-[3px] border-toyInk bg-toySun px-4 py-2.5 font-display text-[11px] uppercase tracking-[0.08em] shadow-brutal-sm transition-transform hover:-translate-y-0.5 disabled:opacity-50"
+          className="inline-flex items-center gap-2 rounded-xl border-[3px] border-toyInk bg-white px-4 py-2.5 font-display text-[11px] uppercase tracking-[0.08em] shadow-brutal-sm transition-transform hover:-translate-y-0.5 disabled:opacity-50"
         >
           {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" strokeWidth={2.5} />}
           {busy ? 'Generando…' : 'Descargar PDF'}
@@ -100,25 +110,34 @@ export default function PanelPdf() {
                     pageRefs.current[index] = node;
                   }}
                 >
-                  {page.type === 'cover' && (
-                    <CoverPage seller={seller} productCount={products.length} images={images} />
-                  )}
-                  {page.type === 'products' && (
+                  {page.type === 'products' ? (
                     <ProductsPage
                       seller={seller}
-                      items={page.items}
+                      rows={page.rows}
                       images={images}
                       pageNumber={page.index}
-                      totalPages={totalProductPages}
+                      totalPages={productPageCount}
                     />
+                  ) : (
+                    <ContactPage seller={seller} />
                   )}
-                  {page.type === 'contact' && <ContactPage seller={seller} />}
                 </PdfPageFrame>
               </div>
             ))}
           </div>
         )}
       </main>
+
+      <BookReader
+        open={readerOpen}
+        pages={pages}
+        seller={seller}
+        images={images}
+        productPageCount={productPageCount}
+        onClose={() => setReaderOpen(false)}
+        onDownload={handleDownload}
+        busy={busy}
+      />
     </div>
   );
 }

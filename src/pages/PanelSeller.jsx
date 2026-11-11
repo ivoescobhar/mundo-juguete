@@ -74,7 +74,7 @@ export default function PanelSeller() {
           className="inline-flex items-center gap-2 rounded-xl border-[3px] border-toyInk bg-toySun px-4 py-2.5 font-display text-[11px] uppercase tracking-[0.08em] shadow-brutal-sm transition-transform hover:-translate-y-0.5"
         >
           <FileDown className="h-4 w-4" strokeWidth={2.5} />
-          Ver catálogo PDF
+          Abrir catálogo
         </Link>
       </PanelHeader>
 
